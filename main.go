@@ -88,3 +88,5 @@ func main() {
 	totalCost := cargo.TotalCost()
 	fmt.Printf("Общая стоимость подъёма груза: %.2f руб.\n", totalCost)
 }
+
+// что-то для коммита
