@@ -13,6 +13,7 @@ type Cargo struct {
 }
 
 // Метод для расчёта базовой стоимости в зависимости от массы
+// Исправление обработки веса, когда груз превышает 300 кг
 func (c *Cargo) BaseCost() float64 {
 	switch {
 	case c.Weight <= 50:
@@ -22,7 +23,7 @@ func (c *Cargo) BaseCost() float64 {
 	case c.Weight <= 300:
 		return 2000
 	default:
-		return 0 // Логика для грузов свыше 300 кг
+		return 2000 + 1000*math.Ceil((c.Weight-300)/100) // Дополнительные 1000 руб за каждые 100 кг
 	}
 }
 
