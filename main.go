@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 // Структура для хранения информации о грузе
 type Cargo struct {
 	Weight      float64 // вес груза
@@ -19,4 +21,22 @@ func (c *Cargo) BaseCost() float64 {
 	default:
 		return 0 // Логика для грузов свыше 300 кг
 	}
+}
+
+// Тесты
+// Метод для расчёта дополнительной стоимости за подъём вручную
+func (c *Cargo) ManualLiftCost() float64 {
+	if c.HasElevator {
+		return 0 // Если есть лифт, доплата не требуется
+	}
+
+	additionalCostPerFloor := 300.0
+	weightMultiplier := math.Ceil(c.Weight / 100.0)
+	floorsToClimb := float64(c.Floor - 1)
+	return additionalCostPerFloor * weightMultiplier * floorsToClimb
+}
+
+// Метод для расчёта общей стоимости
+func (c *Cargo) TotalCost() float64 {
+	return c.BaseCost() + c.ManualLiftCost()
 }
