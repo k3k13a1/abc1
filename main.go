@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // Структура для хранения информации о грузе
 type Cargo struct {
@@ -39,4 +42,15 @@ func (c *Cargo) ManualLiftCost() float64 {
 // Метод для расчёта общей стоимости
 func (c *Cargo) TotalCost() float64 {
 	return c.BaseCost() + c.ManualLiftCost()
+}
+
+// Добавление метода валидации для проверки ввода
+func (c *Cargo) Validate() error {
+	if c.Weight <= 0 {
+		return fmt.Errorf("Вес груза должен быть больше 0")
+	}
+	if c.Floor < 1 {
+		return fmt.Errorf("Этаж должен быть не меньше 1")
+	}
+	return nil
 }
