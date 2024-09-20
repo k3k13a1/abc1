@@ -28,9 +28,10 @@ func (c *Cargo) BaseCost() float64 {
 
 // Тесты
 // Метод для расчёта дополнительной стоимости за подъём вручную
+// Добавление проверки для этажей
 func (c *Cargo) ManualLiftCost() float64 {
-	if c.HasElevator {
-		return 0 // Если есть лифт, доплата не требуется
+	if c.HasElevator || c.Floor <= 1 {
+		return 0 // Нет доплаты за лифт или первый этаж
 	}
 
 	additionalCostPerFloor := 300.0
