@@ -54,3 +54,35 @@ func (c *Cargo) Validate() error {
 	}
 	return nil
 }
+
+func main() {
+	var weight float64
+	var floor int
+	var hasElevator bool
+
+	fmt.Println("Введите вес груза (в кг):")
+	fmt.Scan(&weight)
+
+	fmt.Println("Введите этаж:")
+	fmt.Scan(&floor)
+
+	fmt.Println("Есть ли лифт? (1 - да, 0 - нет):")
+	var elevatorInput int
+	fmt.Scan(&elevatorInput)
+	hasElevator = elevatorInput == 1
+
+	cargo := Cargo{
+		Weight:      weight,
+		Floor:       floor,
+		HasElevator: hasElevator,
+	}
+
+	// Валидация
+	if err := cargo.Validate(); err != nil {
+		fmt.Println("Ошибка:", err)
+		return
+	}
+
+	totalCost := cargo.TotalCost()
+	fmt.Printf("Общая стоимость подъёма груза: %.2f руб.\n", totalCost)
+}
